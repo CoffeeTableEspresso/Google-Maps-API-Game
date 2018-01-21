@@ -25,7 +25,7 @@ def getScore(guessedCoordinate, actualCoordinate):
     return score
 
 score = getScore(testCoord1, testCoord2)
-print("Score is %d") % score
+# print("Score is %d") % score
 
 # Also later- get user input of where they live
 # then determine level of difficulty from that

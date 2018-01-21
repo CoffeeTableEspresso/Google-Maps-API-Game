@@ -13,6 +13,7 @@
 <body>
 	<h1>Guess the Image!</h1>
 	<h2 id="score">Score: 0 pts</h2>
+  <p>Points are based on distance to actual location. 100 being to correct location. 0 being the farthest location</p>
 	<img src="" id="image_to_guess">
 	<div id="map"></div>
 	<script>
@@ -22,10 +23,11 @@
 
 	  function updateScore(newScore) {
 	  	$("#score").text("Score: " + parseInt(newScore) + " pts");
+      updateImageToGuess();
 	  }
 
 	  function updateImageToGuess() {
-	  	$.get("http://localhost:5000/get_guess", function(data, status){
+	  	$.get("/get_guess", function(data, status){
 	  		console.log("Hello")
 	  		console.log(data.image_url);
 	  	    $("#image_to_guess").attr("src",data.image_url);
@@ -59,17 +61,21 @@
 
         // This function updates text boxes values.
         function getCoords(lat, lng) {
-        	console.log(lat);
-        	console.log(lng);
-
-        	// $.post("",
-        	// {
-        	//     lat: lat,
-        	//     lng: lng
-        	// },
-        	// function(data, status){
-        		// updateScore(data.newScore);
-        	// });
+          $.ajax({
+              url: 'http://localhost:5000/guess',
+              dataType: 'json',
+              type: 'post',
+              contentType: 'application/json',
+              data: JSON.stringify( { "lat": lat, "lng": lng } ),
+              processData: false,
+              success: function( data, textStatus, jQxhr ){
+                  console.log("Success");
+                  updateScore(data.new_score)
+              },
+              error: function( jqXhr, textStatus, errorThrown ){
+                  console.log( errorThrown );
+              }
+          });
         }
 
         // Function that creates the marker

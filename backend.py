@@ -9,11 +9,12 @@ def returnurl():
     f.close()
     latlng = g[validlines[random.randint(0, len(validlines)-1)]]
     latlng = ",".join(latlng.split(',')[6:8]).strip("\n")
-    return "https://maps.googleapis.com/maps/api/streetview?" + \
+    url = "https://maps.googleapis.com/maps/api/streetview?" + \
            "size=400x400&" + \
            "location=" + latlng + \
            "&fov=90&heading=235&pitch=10" +\
            "&key=" + APIKEY
+    return {"url":url, "lat":latlng.split(",")[0], "lng":latlng.split(",")[1]}
 
 if __name__=="__main__":
-    print returnurl()
+    print(returnurl())
