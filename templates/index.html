@@ -40,7 +40,7 @@
         var actualLng;
 
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 2,
+          zoom: 1,
           center: myLatlng
         });
 
@@ -58,7 +58,6 @@
 
            // getCoords() function inserts lat and lng values into text boxes
            getCoords(lat, lng);
-           createMarker(actualLat, actualLng);
 
         });
 
@@ -73,10 +72,7 @@
               processData: false,
               success: function( data, textStatus, jQxhr ){
                   updateScore(data.new_score);
-                  console.log(data.actual_lat);
-                  console.log(data.actual_lng);
-                  actualLat = data.actual_lat;
-                  actualLng = data.actual_lng;
+                  createMarker(data.actual_lat, data.actual_lng);
               },
               error: function( jqXhr, textStatus, errorThrown ){
                   console.log( errorThrown );
