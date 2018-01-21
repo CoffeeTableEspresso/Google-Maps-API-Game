@@ -35,7 +35,9 @@ def Guess():
 	lat_guess = float(request.get_json()["lat"])
 	lng_guess = float(request.get_json()["lng"])
 	return jsonify(
-			new_score = getScore((lat_guess,lng_guess),(coordinates.lat,coordinates.lng))
+			new_score = getScore((lat_guess,lng_guess),(coordinates.lat,coordinates.lng)),
+			actual_lat = coordinates.lat,
+			actual_lng = coordinates.lng
 		)
 
 # run the application
